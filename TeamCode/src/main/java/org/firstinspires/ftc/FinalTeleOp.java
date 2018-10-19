@@ -24,7 +24,7 @@ public class FinalTeleOp extends OpModeBase {
         }
 
         // Send telemetry message to signify robot waiting;
-        telemetry.addData("Say", "haha justin is an idi0t");    //
+        telemetry.addData("Say", "haha justin #2 is an idi0t");    //
         telemetry.update();
 
         // Wait for the game to start (driver presses PLAY)
