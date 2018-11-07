@@ -32,7 +32,10 @@ public abstract class AutonomousBase extends OpModeBase {
 
     public abstract void runOpModeImpl();
 
+    public void deployBot()
+    {
 
+    }
     public void dropTrophy() {
         //do something
     }

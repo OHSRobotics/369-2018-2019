@@ -14,7 +14,7 @@ public class CraterAuto extends AutonomousBase {
     @Override
     public void runOpModeImpl() {
         double fastness = 0.2; //make this value BIG
-
+        deployBot();
         helper.drive(fastness, FOOT_SQRT_2);
         Position place = Position.LEFT;
         switch(place) {
