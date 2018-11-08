@@ -8,7 +8,7 @@ public class PixyData {
     }
     public void pixyUpdate(double pos)
     {
-        position = pos; //not sure if this one is needed
+        position = pos; //not sure if this one is needed, because we could just check from pixy directly
     }
     public double getPosition()
     {
