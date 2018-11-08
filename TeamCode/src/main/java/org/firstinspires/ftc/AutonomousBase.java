@@ -5,7 +5,7 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 
 public abstract class AutonomousBase extends OpModeBase {
 
-    private HardwareK9bot   robot           = new HardwareK9bot();
+    private HardwareK9bot robot = new HardwareK9bot();
 
     public MovementHelper helper;
     private boolean red;
@@ -39,7 +39,10 @@ public abstract class AutonomousBase extends OpModeBase {
     public void dropTrophy() {
         //do something
     }
-
+    public int readPixy()
+    {
+        return 0;
+    }
     enum Position {
         LEFT, MIDDLE, RIGHT;
     }
