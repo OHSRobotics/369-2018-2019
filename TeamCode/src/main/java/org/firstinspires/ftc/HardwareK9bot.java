@@ -3,6 +3,7 @@ package org.firstinspires.ftc;
 import com.qualcomm.hardware.modernrobotics.ModernRoboticsI2cGyro;
 import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
@@ -68,14 +69,14 @@ public class HardwareK9bot
         shoulder = hwMap.get(DcMotor.class, "shoulder");
         elbow = hwMap.get(DcMotor.class, "elbow");
         dustbin = hwMap.get(DcMotor.class, "dustbin");
-        grabberL = hwMap.get(Servo.class, "gripL");
-        grabberR = hwMap.get(Servo.class, "gripR");
-        tail = hwMap.get(Servo.class, "tail");
+        //grabberL = hwMap.get(Servo.class, "gripL");
+        //grabberR = hwMap.get(Servo.class, "gripR");
+        //tail = hwMap.get(Servo.class, "tail");
         //gyro = new GyroUnshafter(hwMap.get(ModernRoboticsI2cGyro.class, "gyro"));
-        gyro = hwMap.get(ModernRoboticsI2cGyro.class, "gyro");
+        //gyro = hwMap.get(ModernRoboticsI2cGyro.class, "gyro");
 
-        leftDrive.setDirection(DcMotor.Direction.REVERSE);
-        leftBack.setDirection(DcMotor.Direction.REVERSE);
+        rightBack.setDirection(DcMotorSimple.Direction.REVERSE);
+        rightDrive.setDirection(DcMotorSimple.Direction.REVERSE);
 
         motors[0] = rightDrive;
         motors[1] = leftDrive;
@@ -85,5 +86,7 @@ public class HardwareK9bot
         shaftController.setPower(0);
         shaftController.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
+        elbow.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        shoulder.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
     }
 }

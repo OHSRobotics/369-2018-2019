@@ -3,7 +3,7 @@ package org.firstinspires.ftc;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.Gamepad;
-@TeleOp(name="Telop Final", group="K9bot")
+@TeleOp(name="Telop (not) Final", group="K9bot")
 public class TeleOPNotFinalEdition extends OpModeBase{
     HardwareK9bot   robot           = new HardwareK9bot();
     @Override
@@ -32,18 +32,14 @@ public class TeleOPNotFinalEdition extends OpModeBase{
             robot.rightDrive.setPower(rightDrive);
             robot.rightBack.setPower(rightBack);
 
-            if(getGamepad(2).b)
-                robot.shoulder.setPower(.1);
-            else if(getGamepad(2).a)
-                robot.shoulder.setPower(-.1);
+            robot.shoulder.setPower(getGamepad(2).left_stick_y);
 
             if(getGamepad(2).x)
                 robot.dustbin.setPower(.1);
+            else
+                robot.dustbin.setPower(0);
 
-            if(getGamepad(2).dpad_up)
-                robot.elbow.setPower(.1);
-            else if(getGamepad(2).dpad_down)
-                robot.elbow.setPower(.1);
+            robot.elbow.setPower(getGamepad(2).right_stick_y);
 
             telemetry.update();
             sleep(20);
@@ -51,7 +47,11 @@ public class TeleOPNotFinalEdition extends OpModeBase{
 
     }
     private Gamepad getGamepad(int number) {
-        if(number == 1) return gamepad1;
-        else return gamepad2;
+        if(number == 1)
+            return gamepad1;
+        else if (gamepad2 == null)
+            return gamepad1;
+        else
+            return gamepad2;
     }
 }
