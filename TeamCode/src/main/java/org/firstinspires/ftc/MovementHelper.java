@@ -16,6 +16,8 @@ public class MovementHelper{
         this.robot = robot;
         this.opMode = opMode;
     }
+    //old gyro code
+    /*
     public void calibrate(){
         robot.gyro.calibrate();
         while(robot.gyro.isCalibrating() && opMode.opModeIsActive()){
@@ -24,18 +26,21 @@ public class MovementHelper{
         }
     }
 
+
     int heading(){
         if(robot.gyro.getHeading() > 180)
             return 360 - robot.gyro.getHeading();
         else
             return -robot.gyro.getHeading();
     }
+    */
 
     public void rotate(int degrees, double speed, boolean reset) {
         /*
+
         double turnTargetR = -(15.65 * Math.PI * (degrees / 360));
         double turnTargetL = -turnTargetR;
-        */
+
         if(reset)
             calibrate();
         for(DcMotor motor : robot.motors)
@@ -43,20 +48,20 @@ public class MovementHelper{
         for(DcMotor motor : robot.motors)
             motor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         setSpeed(degrees, speed);
-        /*
+
         while (opMode.opModeIsActive() && Math.abs(-robot.leftBack.getCurrentPosition() - (int)(turnTargetR / 12.57 * 1120)) > 50){
             double currentInches = robot.leftBack.getCurrentPosition();
             opMode.telemetry.addData("target", turnTargetR);
             opMode.telemetry.addData("current", currentInches);
             opMode.telemetry.addData("offset", -robot.leftBack.getCurrentPosition() - (int)(turnTargetR / 12.57 * 1120));
             opMode.telemetry.update();
-        }*/
+        }
         while (!opMode.isStopRequested() && opMode.opModeIsActive() && (Math.abs(heading() - degrees)) > 3) {
-            /*if(offset < SLOW_DOWN_TURN_DEGREES) {
+            if(offset < SLOW_DOWN_TURN_DEGREES) {
                 double betterSpeed = speed * (distanceToTarget / SLOW_DOWN_TURN_DEGREES);
                 setSpeed(distanceToTarget, betterSpeed);
                 opMode.telemetry.addData("speed", "" + betterSpeed);
-            }*/
+            }
             setSpeed(degrees, speed);
             //heading = -robot.gyro.getZThing();
             opMode.telemetry.addData("target", degrees);
@@ -67,6 +72,7 @@ public class MovementHelper{
         for(DcMotor motor : robot.motors){
             motor.setPower(0);
         }
+        */
     }
 
     private void setSpeed(int target, double speed) {
@@ -105,7 +111,25 @@ public class MovementHelper{
             motor.setPower(0);
         }
     }
+    /*
+    public void driveAngle(double speed, double x, double y)
+    {
+        if (opMode.opModeIsActive()) {
+            opMode.telemetry.addData("", "op mode active!");
+            opMode.telemetry.update();
+        }
+        for(DcMotor motor : robot.motors)
+            motor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        for(DcMotor motor : robot.motors)
+            motor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        try {
+            opMode.waitOneFullHardwareCycle();
+        } catch(Exception e) {
 
+        }
+
+    }
+    */
     public void drive(double speed, double targetDistance){
 
 
@@ -127,7 +151,8 @@ public class MovementHelper{
             robot.rightDrive.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
             robot.leftBack.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
             robot.rightBack.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-            opMode.telemetry.update(); */
+            */
+            opMode.telemetry.update();
             try {
                 opMode.waitOneFullHardwareCycle();
             } catch(Exception e) {

@@ -18,6 +18,12 @@ import com.qualcomm.robotcore.util.ElapsedTime;
  *
  * Motor channel:  Left  drive motor:        "left_drive"
  * Motor channel:  Right drive motor:        "right_drive"
+ *
+ * Motor channel:  Raising the claw:         "shoulder"
+ * Motor channel:  Raising the joint:        "elbow"
+ * Motor channel:  Pull mechanism:           "shaft"
+ *
+ *
  * Servo channel:  Servo to raise/lower arm: "arm"
  * Servo channel:  Servo to open/close claw: "claw"
  *
@@ -33,7 +39,10 @@ public class HardwareK9bot
     public DcMotor rightBack = null;
     public DcMotor  leftDrive   = null;
     public DcMotor  rightDrive  = null;
+    public DcMotor shoulder = null;
+    public DcMotor elbow = null;
     public DcMotor shaftController = null;
+    public DcMotor dustbin = null;
     public DcMotor[] motors = new DcMotor[4];
     public Servo grabberL = null, grabberR = null;
     public Servo tail = null;
@@ -50,12 +59,15 @@ public class HardwareK9bot
     /* Initialize standard Hardware interfaces */
     public void init(HardwareMap ahwMap) {
         hwMap = ahwMap;
-        Color_Sensor = hwMap.get(ColorSensor.class, "sensor_color");
+        //Color_Sensor = hwMap.get(ColorSensor.class, "sensor_color");
         leftDrive  = hwMap.get(DcMotor.class, "left_drive");
         rightDrive = hwMap.get(DcMotor.class, "right_drive");
         leftBack = hwMap.get(DcMotor.class, "left_back");
         rightBack = hwMap.get(DcMotor.class, "right_back");
         shaftController = hwMap.get(DcMotor.class, "shaft_controller");
+        shoulder = hwMap.get(DcMotor.class, "shoulder");
+        elbow = hwMap.get(DcMotor.class, "elbow");
+        dustbin = hwMap.get(DcMotor.class, "dustbin");
         grabberL = hwMap.get(Servo.class, "gripL");
         grabberR = hwMap.get(Servo.class, "gripR");
         tail = hwMap.get(Servo.class, "tail");
