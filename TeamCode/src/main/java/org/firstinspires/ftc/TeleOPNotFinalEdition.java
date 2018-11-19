@@ -5,7 +5,7 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.Gamepad;
 @TeleOp(name="Telop (not) Final", group="K9bot")
 public class TeleOPNotFinalEdition extends OpModeBase{
-    HardwareK9bot   robot           = new HardwareK9bot();
+    HardwareK9bot   robot         = new HardwareK9bot();
     @Override
     public void runOpMode()
     {
