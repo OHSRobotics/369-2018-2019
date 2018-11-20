@@ -35,9 +35,16 @@ public class TeleOPNotFinalEdition extends OpModeBase{
             robot.shoulder.setPower(getGamepad(2).left_stick_y);
 
             if(getGamepad(2).x)
-                robot.dustbin.setPower(.1);
+                robot.dustbin.setPower(1);
+            else if(getGamepad(2).y)
+                robot.dustbin.setPower(-1);
             else
                 robot.dustbin.setPower(0);
+
+            if(getGamepad(2).a)
+                robot.binBlock.setPosition(.5);
+            else if (getGamepad(2).b)
+                robot.binBlock.setPosition(0);
 
             robot.elbow.setPower(getGamepad(2).right_stick_y);
 

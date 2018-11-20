@@ -45,8 +45,7 @@ public class HardwareK9bot
     public DcMotor shaftController = null;
     public DcMotor dustbin = null;
     public DcMotor[] motors = new DcMotor[4];
-    public Servo grabberL = null, grabberR = null;
-    public Servo tail = null;
+    public Servo binBlock = null;
     //public GyroUnshafter gyro;
     public ModernRoboticsI2cGyro gyro = null;
 
@@ -69,6 +68,8 @@ public class HardwareK9bot
         shoulder = hwMap.get(DcMotor.class, "shoulder");
         elbow = hwMap.get(DcMotor.class, "elbow");
         dustbin = hwMap.get(DcMotor.class, "dustbin");
+        binBlock = hwMap.get(Servo.class, "binServo");
+
         //grabberL = hwMap.get(Servo.class, "gripL");
         //grabberR = hwMap.get(Servo.class, "gripR");
         //tail = hwMap.get(Servo.class, "tail");
