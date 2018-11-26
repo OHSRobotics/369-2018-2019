@@ -5,7 +5,6 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 public abstract class MotorTest extends OpModeBase  {
 
     HardwareK9bot testMotors = new HardwareK9bot();
-    int stupid = 0;
     public void runMotors () {
         int i = 0;
         while (opModeIsActive()) {
