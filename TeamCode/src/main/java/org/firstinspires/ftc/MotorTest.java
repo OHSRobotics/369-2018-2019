@@ -13,10 +13,10 @@ public abstract class MotorTest extends OpModeBase  {
             testMotors.rightBack.setPower(1);
             testMotors.leftDrive.setPower(1);
             testMotors.rightDrive.setPower(1);
-            telemetry.addData("Left Back Motor: ", ""+ testMotors.leftBack.getCurrentPosition());
-            telemetry.addData("Right Back Motor: ", ""+ testMotors.rightBack.getCurrentPosition());
-            telemetry.addData("Left Front Motor: ", ""+ testMotors.leftDrive.getCurrentPosition());
-            telemetry.addData("RIght Front Motor: ", ""+testMotors.rightDrive.getCurrentPosition());
+            telemetry.addData("Left Back Motor: ", "" + testMotors.leftBack.getCurrentPosition());
+            telemetry.addData("Right Back Motor: ", "" + testMotors.rightBack.getCurrentPosition());
+            telemetry.addData("Left Front Motor: ", "" + testMotors.leftDrive.getCurrentPosition());
+            telemetry.addData("RIght Front Motor: ", "" +testMotors.rightDrive.getCurrentPosition());
             telemetry.update();
         }
     }
