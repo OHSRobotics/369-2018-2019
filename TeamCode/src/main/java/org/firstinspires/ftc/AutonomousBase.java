@@ -3,7 +3,7 @@ package org.firstinspires.ftc;
 import com.qualcomm.robotcore.hardware.DcMotor;
 
 
-public abstract class AutonomousBase extends OpModeBase {
+public class AutonomousBase extends OpModeBase {
 
     private HardwareK9bot robot = new HardwareK9bot();
     public MovementHelper helper;
@@ -21,6 +21,7 @@ public abstract class AutonomousBase extends OpModeBase {
         for(DcMotor motor : robot.motors){
             motor.setPower(0);
             motor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+            motor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         }
 
         waitForStart();
@@ -30,7 +31,8 @@ public abstract class AutonomousBase extends OpModeBase {
         runOpModeImpl();
     }
 
-    public abstract void runOpModeImpl();
+    public void runOpModeImpl(){
+    }
 
     /*
     public void move(double distance, double angle, double power)
@@ -81,12 +83,16 @@ public abstract class AutonomousBase extends OpModeBase {
         telemetry.addData("started turn to pixy", "");
         telemetry.update();
         while(robot.pixy.getVoltage() < 0.05 && opModeIsActive() && robot.leftBack.getCurrentPosition() < 1000){
+            telemetry.addData("started right turn", "");
+            telemetry.update();
             robot.leftBack.setPower(.2);
             robot.rightBack.setPower(-.2);
             robot.leftDrive.setPower(.2);
             robot.rightDrive.setPower(-.2);
         }
         while(robot.pixy.getVoltage() < 0.05 && opModeIsActive() && robot.rightBack.getCurrentPosition() < 2000){
+            telemetry.addData("started left turn", "");
+            telemetry.update();
             robot.leftBack.setPower(-.2);
             robot.rightBack.setPower(.2);
             robot.leftDrive.setPower(-.2);
@@ -94,7 +100,7 @@ public abstract class AutonomousBase extends OpModeBase {
         }
         for (DcMotor motor : robot.motors)
             motor.setPower(0);
-        while(opModeIsActive() && Math.abs(robot.pixy.getVoltage() - 1.9) < .05){
+        while(opModeIsActive() && Math.abs(robot.pixy.getVoltage() - 1.9) > .05){
             telemetry.addData("votlage", robot.pixy.getVoltage());
             telemetry.update();
             double error = (robot.pixy.getVoltage() - 1.9)/(1.9);
@@ -104,6 +110,8 @@ public abstract class AutonomousBase extends OpModeBase {
             robot.rightBack.setPower(error);
             robot.rightDrive.setPower(error);
         }
+        for (DcMotor motor : robot.motors)
+            motor.setPower(0);
     }
 
     public void deployBot()
