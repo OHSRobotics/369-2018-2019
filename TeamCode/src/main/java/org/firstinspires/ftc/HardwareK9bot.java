@@ -1,6 +1,7 @@
 package org.firstinspires.ftc;
 
 import com.qualcomm.hardware.modernrobotics.ModernRoboticsI2cGyro;
+import com.qualcomm.robotcore.hardware.AnalogInput;
 import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
@@ -46,6 +47,7 @@ public class HardwareK9bot
     public DcMotor dustbin = null;
     public DcMotor[] motors = new DcMotor[4];
     public Servo binBlock = null;
+    public AnalogInput pixy = null;
     //public GyroUnshafter gyro;
     public ModernRoboticsI2cGyro gyro = null;
 
@@ -69,6 +71,7 @@ public class HardwareK9bot
         elbow = hwMap.get(DcMotor.class, "elbow");
         dustbin = hwMap.get(DcMotor.class, "dustbin");
         binBlock = hwMap.get(Servo.class, "binServo");
+        pixy = hwMap.get(AnalogInput.class, "pixy");
 
         //grabberL = hwMap.get(Servo.class, "gripL");
         //grabberR = hwMap.get(Servo.class, "gripR");
