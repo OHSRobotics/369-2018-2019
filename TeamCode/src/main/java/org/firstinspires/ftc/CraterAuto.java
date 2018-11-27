@@ -13,7 +13,7 @@ public class CraterAuto extends AutonomousBase {
 
     @Override
     public void runOpModeImpl() {
-        double fastness = 0.2; //make this value BIG
+        /*double fastness = 0.2; //make this value BIG
         deployBot();
         helper.drive(fastness, FOOT_SQRT_2);
         Position place = Position.LEFT;
@@ -28,7 +28,7 @@ public class CraterAuto extends AutonomousBase {
                 helper.drive(fastness, FOOT_SQRT_2);
                 helper.rotate(-45, fastness, false);
                 helper.drive(fastness, 60);
-                */
+
                 break;
             case MIDDLE:
                 helper.drive(fastness, FOOT_SQRT_2);
@@ -48,6 +48,7 @@ public class CraterAuto extends AutonomousBase {
                 break;
         }
         dropTrophy();
-        helper.drive(-fastness, 8);
+        helper.drive(-fastness, 8);*/
+
     }
 }

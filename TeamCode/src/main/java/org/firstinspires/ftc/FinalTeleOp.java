@@ -9,63 +9,32 @@ import com.qualcomm.robotcore.hardware.Gamepad;
  * Last year's code
  */
 
-@TeleOp(name="Telop Final", group="K9bot")
+@TeleOp(name="Telop No longer Final", group="K9bot")
 public class FinalTeleOp extends OpModeBase {
     HardwareK9bot   robot           = new HardwareK9bot();
     private static boolean useSingleController = false;
 
     @Override
     public void runOpMode() {
-        robot.init(hardwareMap);
-        for(DcMotor motor :robot.motors){
-            motor.setPower(0);
-            motor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        }
-
-        // Send telemetry message to signify robot waiting;
-        telemetry.addData("Say", "haha justin #2 is an idi0t");    //
-        telemetry.update();
-
-        // Wait for the game to start (driver presses PLAY)
         waitForStart();
-
-        boolean slowMode = false;
-        // run until the end of the match (driver presses STOP)
-        while (opModeIsActive()) {
-            double turn = getGamepad(1).right_stick_x;
-            double lateral = getGamepad(1).left_stick_x;
-            double forward = -getGamepad(1).left_stick_y;
-
-            double leftDrive, leftBack, rightDrive, rightBack;
-
-            leftDrive = forward + lateral + turn;
-            leftBack = forward - lateral +  turn;
-            rightDrive = forward - lateral - turn;
-            rightBack = forward + lateral - turn;
-
-
-            if(gamepad1.y)
-                slowMode = true;
-            else if (gamepad1.x)
-                slowMode = false;
-
-
-            if(slowMode) {
-                leftDrive /= 3.0;
-                leftBack /= 3.0;
-                rightDrive /= 3.0;
-                rightBack /= 3.0;
+        robot.init(hardwareMap);
+        while(opModeIsActive()){
+            //robot.pixy.getVoltage();
+            telemetry.addData("votlage", robot.pixy.getVoltage());
+            telemetry.update();
+            double error = (robot.pixy.getVoltage() - 3.5/2)/(3.5/2);
+            error *= -.3;
+            if(robot.pixy.getVoltage() > .1){
+                robot.leftBack.setPower(-error);
+                robot.leftDrive.setPower(-error);
+                robot.rightBack.setPower(error);
+                robot.rightDrive.setPower(error);
+            } else {
+                robot.leftDrive.setPower(0);
+                robot.rightDrive.setPower(0);
+                robot.leftBack.setPower(0);
+                robot.rightBack.setPower(0);
             }
-            robot.shaftController.setPower(getGamepad(2).right_trigger - getGamepad(2).left_trigger);
-            robot.leftDrive.setPower(leftDrive);
-            robot.leftBack.setPower(leftBack);
-            robot.rightDrive.setPower(rightDrive);
-            robot.rightBack.setPower(rightBack);
-
-
-
-            // Pause for 40 mS each cycle = update 25 times a second.
-            sleep(20);
         }
     }
 
