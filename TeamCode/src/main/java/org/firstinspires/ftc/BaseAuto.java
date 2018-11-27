@@ -4,7 +4,7 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 
 import static org.firstinspires.ftc.Constants.*;
 
-@Autonomous(name = "Base Autonomous", group = "K9Bot")
+@Autonomous(name = "Test Autonomous", group = "K9Bot")
 public class BaseAuto extends AutonomousBase{
 
     public BaseAuto(){super(true);}
