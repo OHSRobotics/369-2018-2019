@@ -13,6 +13,7 @@ public class CraterAuto extends AutonomousBase {
 
     @Override
     public void runOpModeImpl() {
+        turnToPixy();
         /*double fastness = 0.2; //make this value BIG
         deployBot();
         Position place = Position.LEFT;

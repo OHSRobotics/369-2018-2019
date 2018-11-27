@@ -78,8 +78,34 @@ public abstract class AutonomousBase extends OpModeBase {
     */
     public void turnToPixy()
     {
-
+        telemetry.addData("started turn to pixy", "");
+        telemetry.update();
+        while(robot.pixy.getVoltage() < 0.05 && opModeIsActive() && robot.leftBack.getCurrentPosition() < 1000){
+            robot.leftBack.setPower(.2);
+            robot.rightBack.setPower(-.2);
+            robot.leftDrive.setPower(.2);
+            robot.rightDrive.setPower(-.2);
+        }
+        while(robot.pixy.getVoltage() < 0.05 && opModeIsActive() && robot.rightBack.getCurrentPosition() < 2000){
+            robot.leftBack.setPower(-.2);
+            robot.rightBack.setPower(.2);
+            robot.leftDrive.setPower(-.2);
+            robot.rightDrive.setPower(.2);
+        }
+        for (DcMotor motor : robot.motors)
+            motor.setPower(0);
+        while(opModeIsActive() && Math.abs(robot.pixy.getVoltage() - 1.9) < .05){
+            telemetry.addData("votlage", robot.pixy.getVoltage());
+            telemetry.update();
+            double error = (robot.pixy.getVoltage() - 1.9)/(1.9);
+            error *= -.3;
+            robot.leftBack.setPower(-error);
+            robot.leftDrive.setPower(-error);
+            robot.rightBack.setPower(error);
+            robot.rightDrive.setPower(error);
+        }
     }
+
     public void deployBot()
     {
 
