@@ -32,6 +32,7 @@ public abstract class AutonomousBase extends OpModeBase {
 
     public abstract void runOpModeImpl();
 
+    /*
     public void move(double distance, double angle, double power)
     {
         power = Math.abs(power);
@@ -54,10 +55,10 @@ public abstract class AutonomousBase extends OpModeBase {
             robot.leftDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
             while (opModeIsActive() && ticks < 537.6/Math.PI * distance * Math.sqrt(2)) {
                 ticks = robot.leftDrive.getCurrentPosition();
-                robot.leftDrive.setPower(leftDrive * power);
-                robot.leftBack.setPower(leftBack * power);
-                robot.rightDrive.setPower(rightDrive * power);
-                robot.rightBack.setPower(rightBack * power);
+                robot.leftDrive.setPower(leftDrive);
+                robot.leftBack.setPower(leftBack);
+                robot.rightDrive.setPower(rightDrive);
+                robot.rightBack.setPower(rightBack);
             }
         }
         else //track ticks of right wheel for distance
@@ -66,15 +67,19 @@ public abstract class AutonomousBase extends OpModeBase {
             robot.rightDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
             while (opModeIsActive() && ticks < 537.6/Math.PI * distance * Math.sqrt(2)) {
                 ticks = robot.rightDrive.getCurrentPosition();
-                robot.leftDrive.setPower(leftDrive * power);
-                robot.leftBack.setPower(leftBack * power);
-                robot.rightDrive.setPower(rightDrive * power);
-                robot.rightBack.setPower(rightBack * power);
+                robot.leftDrive.setPower(leftDrive);
+                robot.leftBack.setPower(leftBack);
+                robot.rightDrive.setPower(rightDrive);
+                robot.rightBack.setPower(rightBack);
             }
         }
 
     }
+    */
+    public void turnToPixy()
+    {
 
+    }
     public void deployBot()
     {
 

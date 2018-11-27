@@ -15,12 +15,11 @@ public class CraterAuto extends AutonomousBase {
     public void runOpModeImpl() {
         double fastness = 0.2; //make this value BIG
         deployBot();
-        helper.drive(fastness, FOOT_SQRT_2);
         Position place = Position.LEFT;
         switch(place) {
             case LEFT:
                 //testing the move function
-                move(Math.sqrt(34) * 12,-30.9638,.2);
+               // move(Math.sqrt(34) * 12,-30.9638,.2);
                 /*
                 helper.rotate(-45, fastness, false);
                 helper.drive(fastness, 24);

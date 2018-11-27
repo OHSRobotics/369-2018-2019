@@ -1,13 +1,16 @@
 package org.firstinspires.ftc;
 
+import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.HardwareMap;
-
-public abstract class MotorTest extends OpModeBase  {
-
-    HardwareK9bot testMotors = new HardwareK9bot();
-    int nothing = 0;
-    public void runMotors () {
-        int i = 0;
+@TeleOp(name="motortest", group="K9bot")
+public class MotorTest extends LinearOpMode {
+    @Override
+    public void runOpMode () {
+        HardwareK9bot testMotors = new HardwareK9bot();
+        testMotors.init(hardwareMap);
+        waitForStart();
         while (opModeIsActive()) {
             testMotors.leftBack.setPower(1);
             testMotors.rightBack.setPower(1);
