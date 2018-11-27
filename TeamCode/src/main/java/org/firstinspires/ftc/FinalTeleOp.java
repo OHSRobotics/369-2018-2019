@@ -16,7 +16,6 @@ public class FinalTeleOp extends OpModeBase {
 
     @Override
     public void runOpMode() {
-
         robot.init(hardwareMap);
         for(DcMotor motor :robot.motors){
             motor.setPower(0);

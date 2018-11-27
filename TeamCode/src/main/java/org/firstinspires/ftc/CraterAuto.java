@@ -19,13 +19,16 @@ public class CraterAuto extends AutonomousBase {
         Position place = Position.LEFT;
         switch(place) {
             case LEFT:
+                //testing the move function
+                move(Math.sqrt(34) * 12,-30.9638,.2);
+                /*
                 helper.rotate(-45, fastness, false);
                 helper.drive(fastness, 24);
-                //helper.diaganolDrive(fastness, 2, 'l');
                 helper.rotate(-45, fastness, false);
                 helper.drive(fastness, FOOT_SQRT_2);
                 helper.rotate(-45, fastness, false);
                 helper.drive(fastness, 60);
+                */
                 break;
             case MIDDLE:
                 helper.drive(fastness, FOOT_SQRT_2);
