@@ -35,8 +35,7 @@ public class AutonomousBase extends OpModeBase {
     }
 
 
-    public void move(double distance, double angle)
-    {
+    public void move(double distance, double angle) {
         //set x,y coords
         double lateral = Math.cos(angle);
         double forward = -Math.sin(angle);
@@ -90,7 +89,7 @@ public class AutonomousBase extends OpModeBase {
             robot.rightDrive.setPower(.2);
         }
         //reset encoders, might get rid of this
-        for (DcMotor motor : robot.motors) {
+        for (DcMotor motor : robot.motors)
             motor.setPower(0);
         while(opModeIsActive() && Math.abs(robot.pixy.getVoltage() - pixyHalf) > .1){
             telemetry.addData("votlage", robot.pixy.getVoltage());
