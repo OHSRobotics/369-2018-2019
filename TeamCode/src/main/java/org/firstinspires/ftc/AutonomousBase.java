@@ -5,7 +5,7 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 
 public class AutonomousBase extends OpModeBase {
 
-    private HardwareK9bot robot = new HardwareK9bot();
+    public HardwareK9bot robot = new HardwareK9bot();
     public MovementHelper helper;
     public Position position;
     private boolean red;
@@ -34,10 +34,9 @@ public class AutonomousBase extends OpModeBase {
     public void runOpModeImpl(){
     }
 
-    /*
-    public void move(double distance, double angle, double power)
+
+    public void move(double distance, double angle)
     {
-        power = Math.abs(power);
         //set x,y coords
         double lateral = Math.cos(angle);
         double forward = -Math.sin(angle);
@@ -63,21 +62,8 @@ public class AutonomousBase extends OpModeBase {
                 robot.rightBack.setPower(rightBack);
             }
         }
-        else //track ticks of right wheel for distance
-        {
-            robot.rightDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-            robot.rightDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-            while (opModeIsActive() && ticks < 537.6/Math.PI * distance * Math.sqrt(2)) {
-                ticks = robot.rightDrive.getCurrentPosition();
-                robot.leftDrive.setPower(leftDrive);
-                robot.leftBack.setPower(leftBack);
-                robot.rightDrive.setPower(rightDrive);
-                robot.rightBack.setPower(rightBack);
-            }
-        }
-
     }
-    */
+
     public void turnToPixy()
     {
         telemetry.addData("started turn to pixy", "");
@@ -102,8 +88,12 @@ public class AutonomousBase extends OpModeBase {
             robot.leftDrive.setPower(-.2);
             robot.rightDrive.setPower(.2);
         }
-        for (DcMotor motor : robot.motors)
+        //reset encoders, might get rid of this
+        for (DcMotor motor : robot.motors) {
             motor.setPower(0);
+            motor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+            motor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        }
         while(opModeIsActive() && Math.abs(robot.pixy.getVoltage() - 1.9) > .05){
             telemetry.addData("votlage", robot.pixy.getVoltage());
             telemetry.update();
@@ -124,10 +114,6 @@ public class AutonomousBase extends OpModeBase {
     }
     public void dropTrophy() {
         //do something
-    }
-    public int readPixy()
-    {
-        return 0;
     }
     enum Position {
         LEFT, MIDDLE, RIGHT;

@@ -4,6 +4,9 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 
 import static org.firstinspires.ftc.Constants.*;
 
+import com.qualcomm.robotcore.hardware.DcMotor;
+
+
 @Autonomous(name="Left Red Autonomous", group="K9bot")
 public class CraterAuto extends AutonomousBase {
 
@@ -13,37 +16,37 @@ public class CraterAuto extends AutonomousBase {
 
     @Override
     public void runOpModeImpl() {
+        //move forward for a short bit
+        while(opModeIsActive() && robot.leftBack.getCurrentPosition() < 200)
+            for(DcMotor motor: robot.motors)
+                motor.setPower(.4);
+        for(DcMotor motor: robot.motors) {
+            motor.setPower(0);
+            motor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+            motor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        }
+        //turn to yellow block, move forward
         turnToPixy();
-        deployBot();
+
+        //calculate the average encoder readings of the 3 wheels, need to replace later
+        double distanceDrivenToBlock = (robot.leftBack.getCurrentPosition()+robot.rightBack.getCurrentPosition()+robot.rightDrive.getCurrentPosition())/3;
+        //drive back to position
+        while(opModeIsActive() && robot.leftBack.getCurrentPosition() < distanceDrivenToBlock)
+            for(DcMotor motor : robot.motors)
+                motor.setPower(-1);
+        for(DcMotor motor : robot.motors)
+            motor.setPower(0);
         double fastness = 0.2;
         switch(position) {
             case LEFT:
-                //testing the move function
-               // move(Math.sqrt(34) * 12,-30.9638,.2);
 
-                helper.rotate(-45, fastness, false);
-                helper.drive(fastness, 24);
-                helper.rotate(-45, fastness, false);
-                helper.drive(fastness, FOOT_SQRT_2);
-                helper.rotate(-45, fastness, false);
-                helper.drive(fastness, 60);
 
                 break;
             case MIDDLE:
-                helper.drive(fastness, FOOT_SQRT_2);
-                helper.drive(-fastness, FOOT_SQRT_2);
-                helper.rotate(-90, fastness, false);
-                helper.drive(fastness, 3*FOOT_SQRT_2);
-                helper.rotate(-45, fastness, false);
-                helper.drive(fastness, 36);
+
                 break;
             case RIGHT:
-                helper.rotate(45, fastness, false);
-                helper.drive(fastness, 24);
-                helper.drive(-fastness, 24);
-                helper.rotate(-135, fastness, false);
-                helper.drive(fastness, 3 *FOOT_SQRT_2);
-                helper.rotate(-45, fastness, false);
+
                 break;
         }
         dropTrophy();
