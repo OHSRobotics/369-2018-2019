@@ -7,7 +7,7 @@ public class AutonomousBase extends OpModeBase {
 
     private HardwareK9bot robot = new HardwareK9bot();
     public MovementHelper helper;
-    public Position position;
+
     private boolean red;
 
     public AutonomousBase(boolean red) {
@@ -80,35 +80,36 @@ public class AutonomousBase extends OpModeBase {
     */
     public void turnToPixy()
     {
+        double pixyHalf = 1.7;
         telemetry.addData("started turn to pixy", "");
         telemetry.update();
-        if(robot.pixy.getVoltage()>0.05)
-            position = Position.MIDDLE;
-        while(robot.pixy.getVoltage() < 0.05 && opModeIsActive() && robot.leftBack.getCurrentPosition() < 1000){
+        while(robot.pixy.getVoltage() < 0.05 && opModeIsActive() && robot.leftBack.getCurrentPosition() < 600){
             telemetry.addData("started right turn", "");
             telemetry.update();
-            position = Position.RIGHT;
-            robot.leftBack.setPower(.2);
-            robot.rightBack.setPower(-.2);
-            robot.leftDrive.setPower(.2);
-            robot.rightDrive.setPower(-.2);
+            robot.leftBack.setPower(.1);
+            robot.rightBack.setPower(-.1);
+            robot.leftDrive.setPower(.1);
+            robot.rightDrive.setPower(-.1);
         }
         while(robot.pixy.getVoltage() < 0.05 && opModeIsActive() && robot.rightBack.getCurrentPosition() < 2000){
             telemetry.addData("started left turn", "");
             telemetry.update();
-            position = Position.LEFT;
-            robot.leftBack.setPower(-.2);
-            robot.rightBack.setPower(.2);
-            robot.leftDrive.setPower(-.2);
-            robot.rightDrive.setPower(.2);
+            robot.leftBack.setPower(-.1);
+            robot.rightBack.setPower(.1);
+            robot.leftDrive.setPower(-.1);
+            robot.rightDrive.setPower(.1);
         }
         for (DcMotor motor : robot.motors)
             motor.setPower(0);
-        while(opModeIsActive() && Math.abs(robot.pixy.getVoltage() - 1.9) > .05){
+        while(opModeIsActive() && Math.abs(robot.pixy.getVoltage() - pixyHalf) > .1){
             telemetry.addData("votlage", robot.pixy.getVoltage());
             telemetry.update();
-            double error = (robot.pixy.getVoltage() - 1.9)/(1.9);
+            double error = (robot.pixy.getVoltage() - pixyHalf)/(pixyHalf);
             error *= -.3;
+            if(error < 0)
+                error -=.1;
+            else
+                error += .1;
             robot.leftBack.setPower(-error);
             robot.leftDrive.setPower(-error);
             robot.rightBack.setPower(error);
