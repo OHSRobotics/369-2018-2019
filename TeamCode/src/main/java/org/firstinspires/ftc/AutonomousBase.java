@@ -7,7 +7,7 @@ public class AutonomousBase extends OpModeBase {
 
     private HardwareK9bot robot = new HardwareK9bot();
     public MovementHelper helper;
-
+    public Position position;
     private boolean red;
 
     public AutonomousBase(boolean red) {
@@ -82,9 +82,12 @@ public class AutonomousBase extends OpModeBase {
     {
         telemetry.addData("started turn to pixy", "");
         telemetry.update();
+        if(robot.pixy.getVoltage()>0.05)
+            position = Position.MIDDLE;
         while(robot.pixy.getVoltage() < 0.05 && opModeIsActive() && robot.leftBack.getCurrentPosition() < 1000){
             telemetry.addData("started right turn", "");
             telemetry.update();
+            position = Position.RIGHT;
             robot.leftBack.setPower(.2);
             robot.rightBack.setPower(-.2);
             robot.leftDrive.setPower(.2);
@@ -93,6 +96,7 @@ public class AutonomousBase extends OpModeBase {
         while(robot.pixy.getVoltage() < 0.05 && opModeIsActive() && robot.rightBack.getCurrentPosition() < 2000){
             telemetry.addData("started left turn", "");
             telemetry.update();
+            position = Position.LEFT;
             robot.leftBack.setPower(-.2);
             robot.rightBack.setPower(.2);
             robot.leftDrive.setPower(-.2);

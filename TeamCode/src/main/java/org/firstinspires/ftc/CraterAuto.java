@@ -14,14 +14,13 @@ public class CraterAuto extends AutonomousBase {
     @Override
     public void runOpModeImpl() {
         turnToPixy();
-        /*double fastness = 0.2; //make this value BIG
         deployBot();
-        Position place = Position.LEFT;
-        switch(place) {
+        double fastness = 0.2;
+        switch(position) {
             case LEFT:
                 //testing the move function
                // move(Math.sqrt(34) * 12,-30.9638,.2);
-                /*
+
                 helper.rotate(-45, fastness, false);
                 helper.drive(fastness, 24);
                 helper.rotate(-45, fastness, false);
@@ -48,7 +47,7 @@ public class CraterAuto extends AutonomousBase {
                 break;
         }
         dropTrophy();
-        helper.drive(-fastness, 8);*/
+        helper.drive(-fastness, 8);
 
     }
 }
