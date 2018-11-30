@@ -42,7 +42,7 @@ public class TeleOPNotFinalEdition extends OpModeBase{
                 robot.dustbin.setPower(0);
 
             if(getGamepad(2).a)
-                robot.binBlock.setPosition(.5);
+                robot.binBlock.setPosition(.65);
             else if (getGamepad(2).b)
                 robot.binBlock.setPosition(0);
 

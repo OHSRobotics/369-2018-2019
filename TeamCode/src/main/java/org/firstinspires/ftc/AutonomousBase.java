@@ -66,6 +66,7 @@ public class AutonomousBase extends OpModeBase {
 
     public void turnToPixy()
     {
+        double pixyHalf = 1.7;
         telemetry.addData("started turn to pixy", "");
         telemetry.update();
         if(robot.pixy.getVoltage()>0.05)
@@ -91,14 +92,15 @@ public class AutonomousBase extends OpModeBase {
         //reset encoders, might get rid of this
         for (DcMotor motor : robot.motors) {
             motor.setPower(0);
-            motor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-            motor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        }
-        while(opModeIsActive() && Math.abs(robot.pixy.getVoltage() - 1.9) > .05){
+        while(opModeIsActive() && Math.abs(robot.pixy.getVoltage() - pixyHalf) > .1){
             telemetry.addData("votlage", robot.pixy.getVoltage());
             telemetry.update();
-            double error = (robot.pixy.getVoltage() - 1.9)/(1.9);
+            double error = (robot.pixy.getVoltage() - pixyHalf)/(pixyHalf);
             error *= -.3;
+            if(error < 0)
+                error -=.1;
+            else
+                error += .1;
             robot.leftBack.setPower(-error);
             robot.leftDrive.setPower(-error);
             robot.rightBack.setPower(error);
