@@ -35,10 +35,12 @@ public class AutonomousBase extends OpModeBase {
     }
 
 
-    public void move(double distance, double angle) {
+    public void move(double distance, double angle, double power) {
         //set x,y coords
+        angle += 90;
+        angle *= Math.PI/180;
         double lateral = Math.cos(angle);
-        double forward = -Math.sin(angle);
+        double forward = Math.sin(angle);
 
         double leftDrive, leftBack, rightDrive, rightBack;
 
@@ -48,19 +50,28 @@ public class AutonomousBase extends OpModeBase {
         rightDrive = forward - lateral;
         rightBack = forward + lateral;
 
+        int ticks = maxEncoder();
+
         //track ticks of left wheel for distance
-        double ticks = 0;
-        if(leftDrive != 0) {
-            robot.leftDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-            robot.leftDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-            while (opModeIsActive() && ticks < 537.6/Math.PI * distance * Math.sqrt(2)) {
-                ticks = robot.leftDrive.getCurrentPosition();
-                robot.leftDrive.setPower(leftDrive);
-                robot.leftBack.setPower(leftBack);
-                robot.rightDrive.setPower(rightDrive);
-                robot.rightBack.setPower(rightBack);
-            }
+        while (opModeIsActive() && Math.abs(ticks) < distance) {
+            ticks = robot.leftDrive.getCurrentPosition();
+            robot.rightBack.setPower(rightBack);
+            robot.leftBack.setPower(leftBack);
+            robot.rightDrive.setPower(rightDrive);
+            robot.leftDrive.setPower(leftDrive);
         }
+        setAll(0);
+    }
+
+    private void setAll(double power){
+        for(DcMotor motor : robot.motors){
+            motor.setPower(power);
+        }
+    }
+
+    private int maxEncoder(){
+        return Math.max(Math.max(robot.leftBack.getCurrentPosition(), robot.rightBack.getCurrentPosition()),
+                Math.max(robot.rightDrive.getCurrentPosition(), robot.leftDrive.getCurrentPosition()));
     }
 
     public void turnToPixy()
