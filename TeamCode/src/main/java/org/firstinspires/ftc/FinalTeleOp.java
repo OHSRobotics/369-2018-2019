@@ -9,7 +9,7 @@ import com.qualcomm.robotcore.hardware.Gamepad;
  * Last year's code
  */
 
-@TeleOp(name="Telop No longer Final", group="K9bot")
+@TeleOp(name="Telop Test (if you use this in a tournament, you will lose)", group="K9bot")
 public class FinalTeleOp extends OpModeBase {
     HardwareK9bot   robot           = new HardwareK9bot();
     private static boolean useSingleController = false;
@@ -20,21 +20,8 @@ public class FinalTeleOp extends OpModeBase {
         robot.init(hardwareMap);
         while(opModeIsActive()){
             //robot.pixy.getVoltage();
-            telemetry.addData("votlage", robot.pixy.getVoltage());
+            telemetry.addData("heading", robot.gyro.getHeading());
             telemetry.update();
-            double error = (robot.pixy.getVoltage() - 3.5/2)/(3.5/2);
-            error *= -.3;
-            if(robot.pixy.getVoltage() > .1){
-                robot.leftBack.setPower(-error);
-                robot.leftDrive.setPower(-error);
-                robot.rightBack.setPower(error);
-                robot.rightDrive.setPower(error);
-            } else {
-                robot.leftDrive.setPower(0);
-                robot.rightDrive.setPower(0);
-                robot.leftBack.setPower(0);
-                robot.rightBack.setPower(0);
-            }
         }
     }
 

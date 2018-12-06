@@ -25,7 +25,11 @@ public class AutonomousBase extends OpModeBase {
         }
 
         waitForStart();
-
+        robot.gyro.calibrate();
+        while(robot.gyro.isCalibrating() && opModeIsActive()){
+            telemetry.addData("gryo calibrating","");
+            telemetry.update();
+        }
         //do inital things that are the same across all auto's
 
         runOpModeImpl();
@@ -33,7 +37,6 @@ public class AutonomousBase extends OpModeBase {
 
     public void runOpModeImpl(){
     }
-
 
     public void move(double distance, double angle, double power) {
         //set x,y coords
@@ -69,6 +72,10 @@ public class AutonomousBase extends OpModeBase {
         }
     }
 
+    public void gyroRotate(int heading, double speed){
+        while(opModeIsActive());
+    }
+
     private int maxEncoder(){
         return Math.max(Math.max(robot.leftBack.getCurrentPosition(), robot.rightBack.getCurrentPosition()),
                 Math.max(robot.rightDrive.getCurrentPosition(), robot.leftDrive.getCurrentPosition()));
@@ -76,33 +83,33 @@ public class AutonomousBase extends OpModeBase {
 
     public void turnToPixy()
     {
-        double pixyHalf = 1.7;
+        double pixyHalf = 1.95;
         telemetry.addData("started turn to pixy", "");
         telemetry.update();
         if(robot.pixy.getVoltage()>0.05)
             position = Position.MIDDLE;
-        while(robot.pixy.getVoltage() < 0.05 && opModeIsActive() && robot.leftBack.getCurrentPosition() < 1000){
+        while(robot.pixy.getVoltage() < 0.1 && opModeIsActive() && robot.leftBack.getCurrentPosition() < 600){
             telemetry.addData("started right turn", "");
             telemetry.update();
             position = Position.RIGHT;
-            robot.leftBack.setPower(.2);
-            robot.rightBack.setPower(-.2);
-            robot.leftDrive.setPower(.2);
-            robot.rightDrive.setPower(-.2);
+            robot.leftBack.setPower(.1);
+            robot.rightBack.setPower(-.1);
+            robot.leftDrive.setPower(.1);
+            robot.rightDrive.setPower(-.1);
         }
-        while(robot.pixy.getVoltage() < 0.05 && opModeIsActive() && robot.rightBack.getCurrentPosition() < 2000){
+        while(robot.pixy.getVoltage() < 0.1 && opModeIsActive() && robot.rightBack.getCurrentPosition() < 2000){
             telemetry.addData("started left turn", "");
             telemetry.update();
             position = Position.LEFT;
-            robot.leftBack.setPower(-.2);
-            robot.rightBack.setPower(.2);
-            robot.leftDrive.setPower(-.2);
-            robot.rightDrive.setPower(.2);
+            robot.leftBack.setPower(-.1);
+            robot.rightBack.setPower(.1);
+            robot.leftDrive.setPower(-.1);
+            robot.rightDrive.setPower(.1);
         }
         //reset encoders, might get rid of this
         for (DcMotor motor : robot.motors)
             motor.setPower(0);
-        while(opModeIsActive() && Math.abs(robot.pixy.getVoltage() - pixyHalf) > .1){
+        while(opModeIsActive() && Math.abs(robot.pixy.getVoltage() - pixyHalf) > .05){
             telemetry.addData("votlage", robot.pixy.getVoltage());
             telemetry.update();
             double error = (robot.pixy.getVoltage() - pixyHalf)/(pixyHalf);

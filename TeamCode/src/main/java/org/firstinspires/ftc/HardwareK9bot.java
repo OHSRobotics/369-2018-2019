@@ -77,11 +77,10 @@ public class HardwareK9bot
         //grabberR = hwMap.get(Servo.class, "gripR");
         //tail = hwMap.get(Servo.class, "tail");
         //gyro = new GyroUnshafter(hwMap.get(ModernRoboticsI2cGyro.class, "gyro"));
-        //gyro = hwMap.get(ModernRoboticsI2cGyro.class, "gyro");
+        gyro = hwMap.get(ModernRoboticsI2cGyro.class, "gyro");
 
         rightBack.setDirection(DcMotorSimple.Direction.REVERSE);
         rightDrive.setDirection(DcMotorSimple.Direction.REVERSE);
-
         motors[0] = rightDrive;
         motors[1] = leftDrive;
         motors[2] = leftBack;

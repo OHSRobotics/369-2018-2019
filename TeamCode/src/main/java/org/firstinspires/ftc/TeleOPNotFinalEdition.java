@@ -3,15 +3,13 @@ package org.firstinspires.ftc;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.Gamepad;
-@TeleOp(name="Telop (not) Final", group="K9bot")
+@TeleOp(name="Correct Teleop", group="K9bot")
 public class TeleOPNotFinalEdition extends OpModeBase{
     HardwareK9bot   robot         = new HardwareK9bot();
     @Override
     public void runOpMode()
     {
         robot.init(hardwareMap);
-        telemetry.addData("Say", "haha justin #2 is an idi0t");    //
-        telemetry.update();
         waitForStart();
         while(opModeIsActive())
         {
