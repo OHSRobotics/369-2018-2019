@@ -23,7 +23,7 @@ public class FinalTeleOp extends OpModeBase {
             telemetry.addData("gyro calibrating", "");
             telemetry.update();
         }
-        telemetry.addData("Calibration finished", "");
+        telemetry.addData("Calibration finished ", "");
         telemetry.update();
         int heading = 250;
 
