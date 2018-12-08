@@ -4,7 +4,7 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 
 import static org.firstinspires.ftc.Constants.*;
 
-@Autonomous(name="Left Red Autonomous", group="K9bot")
+@Autonomous(name="Correct Autonomous", group="K9bot")
 public class CraterAuto extends AutonomousBase {
 
     public CraterAuto() {
@@ -14,5 +14,6 @@ public class CraterAuto extends AutonomousBase {
     @Override
     public void runOpModeImpl() {
         turnToPixy();
+        helper.drive(.3, 27);
     }
 }
