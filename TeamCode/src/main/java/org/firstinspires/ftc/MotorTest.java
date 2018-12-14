@@ -10,7 +10,7 @@ public class MotorTest extends LinearOpMode {
     public void runOpMode () {
         HardwareK9bot testMotors = new HardwareK9bot();
         testMotors.init(hardwareMap);
-        waitForStart();
+        waitForStart();//
         while (opModeIsActive()) {
             testMotors.leftBack.setPower(1);
             testMotors.rightBack.setPower(1);
