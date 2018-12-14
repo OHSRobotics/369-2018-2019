@@ -34,8 +34,7 @@ public class FinalTeleOp extends OpModeBase {
                     scaledHeading = 1 - Math.abs((180 + robot.gyro.getHeading() - heading) / 180.0);
                 else if (heading > 180 + robot.gyro.getHeading() && heading < 360)
                     scaledHeading = -1 + (heading - 180 + robot.gyro.getHeading() / 180.0);
-            }
-            else if (robot.gyro.getHeading() > 180) {
+            } else if (robot.gyro.getHeading() > 180) {
                 if (heading >= robot.gyro.getHeading() || heading <= robot.gyro.getHeading() - 180)
                     scaledHeading = ((360 + heading - robot.gyro.getHeading()) % 360) / 180.0;
                 else if (heading > robot.gyro.getHeading() - 180 && heading < robot.gyro.getHeading())
@@ -46,30 +45,18 @@ public class FinalTeleOp extends OpModeBase {
             if (scaledHeading > 0) {
                 telemetry.addData("Turn left", "");
                 telemetry.addData("Gyro Heading", scaledHeading);
-            }
-            else {
+            } else {
                 telemetry.addData("Turn right", "");
                 telemetry.addData("Gyro Heading", scaledHeading);
             }
-           /* telemetry.addData("Heading", scaledHeading);*/
+            /* telemetry.addData("Heading", scaledHeading);*/
 
-            telemetry.update();
-        }
-
-            /*if (robot.gyro.getHeading() - heading > 180)
-                telemetry.addData("Turn robot left ", "");
-            else if (robot.gyro.getHeading() - heading < 180)
-                telemetry.addData("Turn robot right", "");
             telemetry.update();
         }
         telemetry.addData("Robot is currently at inputted gyro heading", "");
-        telemetry.update();*/
+        telemetry.update();
 
-       /* while (opModeIsActive()) {
-            telemetry.addData("Heading", scaledHeading);
-            telemetry.update();
-        }*/
-        }
+    }
 
 
     /*private Gamepad getGamepad(int number) {
@@ -77,6 +64,8 @@ public class FinalTeleOp extends OpModeBase {
         if(number == 1) return gamepad1;
         else return gamepad2;
     }*/
-    }
+
+
+}
 
 
