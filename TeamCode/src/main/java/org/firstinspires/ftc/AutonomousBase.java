@@ -27,7 +27,7 @@ public class AutonomousBase extends OpModeBase {
         waitForStart();
         robot.gyro.calibrate();
         while(robot.gyro.isCalibrating() && opModeIsActive()){
-            telemetry.addData("gryo calibrating","");
+            telemetry.addData("gyro calibrating","");
             telemetry.update();
         }
         //do inital things that are the same across all auto's
@@ -73,7 +73,35 @@ public class AutonomousBase extends OpModeBase {
     }
 
     public void gyroRotate(int heading, double speed){
-        while(opModeIsActive());
+        while (robot.gyro.getHeading() != heading && opModeIsActive()) {
+            double scaledHeading = 0;
+
+            if (robot.gyro.getHeading() <= 180) {
+                if (heading >= robot.gyro.getHeading() && heading <= 180 + robot.gyro.getHeading())
+                    scaledHeading = 1 - Math.abs((180 + robot.gyro.getHeading() - heading) / 180.0);
+                else if (heading > 180 + robot.gyro.getHeading() && heading < 360)
+                    scaledHeading = -1 + (heading - 180 + robot.gyro.getHeading() / 180.0);
+            }
+            else if (robot.gyro.getHeading() > 180) {
+                if (heading >= robot.gyro.getHeading() || heading <= robot.gyro.getHeading() - 180)
+                    scaledHeading = ((360 + heading - robot.gyro.getHeading()) % 360) / 180.0;
+                else if (heading > robot.gyro.getHeading() - 180 && heading < robot.gyro.getHeading())
+                    scaledHeading = (heading - robot.gyro.getHeading()) / 180.0;
+            }
+
+
+            if (scaledHeading > 0) {
+                telemetry.addData("Turn left", "");
+                telemetry.addData("Gyro Heading", scaledHeading);
+            } else {
+                telemetry.addData("Turn right", "");
+                telemetry.addData("Gyro Heading", scaledHeading);
+            }
+
+            telemetry.update();
+        }
+        telemetry.addData("Robot is currently at inputted gyro heading", "");
+        telemetry.update();
     }
 
     private int maxEncoder(){

@@ -49,7 +49,6 @@ public class FinalTeleOp extends OpModeBase {
                 telemetry.addData("Turn right", "");
                 telemetry.addData("Gyro Heading", scaledHeading);
             }
-            /* telemetry.addData("Heading", scaledHeading);*/
 
             telemetry.update();
         }
