@@ -37,10 +37,11 @@ public class FinalTeleOp extends OpModeBase {
             }
             else if (robot.gyro.getHeading() > 180) {
                 if (heading >= robot.gyro.getHeading() || heading <= robot.gyro.getHeading() - 180)
-                    scaledHeading = Math.abs(heading - robot.gyro.getHeading()) / 180.0;
+                    scaledHeading = ((360 + heading - robot.gyro.getHeading()) % 360) / 180.0;
                 else if (heading > robot.gyro.getHeading() - 180 && heading < robot.gyro.getHeading())
                     scaledHeading = (heading - robot.gyro.getHeading()) / 180.0;
             }
+
 
             if (scaledHeading > 0) {
                 telemetry.addData("Turn left", "");
