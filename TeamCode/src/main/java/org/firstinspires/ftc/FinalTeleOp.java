@@ -25,15 +25,15 @@ public class FinalTeleOp extends OpModeBase {
         }
         telemetry.addData("Calibration finished ", "");
         telemetry.update();
-        int heading = 270;
+        int heading = 180;
 
         while (robot.gyro.getHeading() != heading && opModeIsActive()) {
             double scaledHeading = 0;
             if (robot.gyro.getHeading() <= 180) {
                 if (heading >= robot.gyro.getHeading() && heading <= 180 + robot.gyro.getHeading())
-                    scaledHeading = (360 - heading -  robot.gyro.getHeading()) / 180.0;
+                    scaledHeading = 1 - Math.abs((180 + robot.gyro.getHeading() - heading) / 180.0);
                 else if (heading > 180 + robot.gyro.getHeading() && heading < 360)
-                    scaledHeading = -(360 - heading - robot.gyro.getHeading()) / 180.0;
+                    scaledHeading = -1 + (heading - 180 + robot.gyro.getHeading() / 180.0);
             }
             else if (robot.gyro.getHeading() > 180) {
                 if (heading >= robot.gyro.getHeading() || heading <= robot.gyro.getHeading() - 180)
@@ -42,10 +42,14 @@ public class FinalTeleOp extends OpModeBase {
                     scaledHeading = (heading - robot.gyro.getHeading()) / 180.0;
             }
 
-            if (scaledHeading > 0)
-                telemetry.addData("Turn left","");
-            else
-                telemetry.addData("Turn right","");
+            if (scaledHeading > 0) {
+                telemetry.addData("Turn left", "");
+                telemetry.addData("Gyro Heading", scaledHeading);
+            }
+            else {
+                telemetry.addData("Turn right", "");
+                telemetry.addData("Gyro Heading", scaledHeading);
+            }
            /* telemetry.addData("Heading", scaledHeading);*/
 
             telemetry.update();
