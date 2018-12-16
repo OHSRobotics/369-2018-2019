@@ -92,7 +92,7 @@ public class AutonomousBase extends OpModeBase {
                 if (heading >= robot.gyro.getHeading() && heading <= 180 + robot.gyro.getHeading())
                     scaledHeading = 1 - Math.abs((180 + robot.gyro.getHeading() - heading) / 180.0);
                 else if (heading > 180 + robot.gyro.getHeading() && heading < 360)
-                    scaledHeading = (heading - 180 + robot.gyro.getHeading() / 180.0) - 1;
+                    scaledHeading = (heading - 180 + robot.gyro.getHeading()) / 180.0 - 1;
             }
             else if (robot.gyro.getHeading() > 180) {
                 if (heading >= robot.gyro.getHeading() || heading <= robot.gyro.getHeading() - 180)
@@ -107,7 +107,7 @@ public class AutonomousBase extends OpModeBase {
                 robot.rightBack.setPower(speed);
                 robot.leftDrive.setPower(-speed);
                 robot.leftBack.setPower(-speed);
-            } else {
+            } else if (scaledHeading < 0){
                 robot.rightDrive.setPower(-speed);
                 robot.rightBack.setPower(-speed);
                 robot.leftDrive.setPower(speed);
