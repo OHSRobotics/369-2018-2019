@@ -24,27 +24,21 @@ public class TeleOPNotFinalEdition extends OpModeBase{
             rightDrive = forward - lateral - turn;
             rightBack = forward + lateral - turn;
 
-            robot.shaftController.setPower(getGamepad(2).right_trigger- getGamepad(2).left_trigger);
+            robot.shaft1.setPower(getGamepad(2).right_trigger- getGamepad(2).left_trigger);
             robot.leftDrive.setPower(leftDrive);
             robot.leftBack.setPower(leftBack);
             robot.rightDrive.setPower(rightDrive);
             robot.rightBack.setPower(rightBack);
 
-            robot.shoulder.setPower(getGamepad(2).left_stick_y);
+            robot.shaft2.setPower(getGamepad(2).left_stick_y);
 
             if(getGamepad(2).x)
-                robot.dustbin.setPower(1);
+                robot.rake.setPower(1);
             else if(getGamepad(2).y)
-                robot.dustbin.setPower(-1);
+                robot.rake.setPower(-1);
             else
-                robot.dustbin.setPower(0);
+                robot.rake.setPower(0);
 
-            if(getGamepad(2).a)
-                robot.binBlock.setPosition(.65);
-            else if (getGamepad(2).b)
-                robot.binBlock.setPosition(0);
-
-            robot.elbow.setPower(getGamepad(2).right_stick_y);
 
             telemetry.update();
             sleep(20);

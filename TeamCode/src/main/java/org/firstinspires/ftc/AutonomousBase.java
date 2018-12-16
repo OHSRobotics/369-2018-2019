@@ -66,6 +66,18 @@ public class AutonomousBase extends OpModeBase {
         setAll(0);
     }
 
+    public void gamePiece(){
+        robot.rake.setPower(-.1);
+        sleep(500);
+        robot.rake.setPower(0);
+    }
+
+    public void crater(){
+        robot.shaft2.setPower(.5);
+        sleep(1500);
+        robot.shaft2.setPower(0);
+    }
+
     private void setAll(double power){
         for(DcMotor motor : robot.motors){
             motor.setPower(power);
@@ -73,14 +85,14 @@ public class AutonomousBase extends OpModeBase {
     }
 
     public void gyroRotate(int heading, double speed){
-        while (robot.gyro.getHeading() != heading && opModeIsActive()) {
+        while (Math.abs(robot.gyro.getHeading() - heading) > 5 && opModeIsActive()) {
             double scaledHeading = 0;
 
             if (robot.gyro.getHeading() <= 180) {
                 if (heading >= robot.gyro.getHeading() && heading <= 180 + robot.gyro.getHeading())
                     scaledHeading = 1 - Math.abs((180 + robot.gyro.getHeading() - heading) / 180.0);
                 else if (heading > 180 + robot.gyro.getHeading() && heading < 360)
-                    scaledHeading = -1 + (heading - 180 + robot.gyro.getHeading() / 180.0);
+                    scaledHeading = (heading - 180 + robot.gyro.getHeading() / 180.0) - 1;
             }
             else if (robot.gyro.getHeading() > 180) {
                 if (heading >= robot.gyro.getHeading() || heading <= robot.gyro.getHeading() - 180)
@@ -91,15 +103,20 @@ public class AutonomousBase extends OpModeBase {
 
 
             if (scaledHeading > 0) {
-                telemetry.addData("Turn left", "");
-                telemetry.addData("Gyro Heading", scaledHeading);
+                robot.rightDrive.setPower(speed);
+                robot.rightBack.setPower(speed);
+                robot.leftDrive.setPower(-speed);
+                robot.leftBack.setPower(-speed);
             } else {
-                telemetry.addData("Turn right", "");
-                telemetry.addData("Gyro Heading", scaledHeading);
+                robot.rightDrive.setPower(-speed);
+                robot.rightBack.setPower(-speed);
+                robot.leftDrive.setPower(speed);
+                robot.leftBack.setPower(speed);
             }
-
             telemetry.update();
         }
+        for(DcMotor motor: robot.motors)
+            motor.setPower(0);
         telemetry.addData("Robot is currently at inputted gyro heading", "");
         telemetry.update();
     }
@@ -109,7 +126,19 @@ public class AutonomousBase extends OpModeBase {
                 Math.max(robot.rightDrive.getCurrentPosition(), robot.leftDrive.getCurrentPosition()));
     }
 
-    public void turnToPixy()
+    public void turnToPixyNew(){//works for the pixy camera on the side looking at two
+        if(robot.pixy.getVoltage() < .5) {
+            gyroRotate(28, .2);
+            position = Position.LEFT;
+        }else if (robot.pixy.getVoltage() > 1.5) {
+            gyroRotate(332, .2);
+            position = Position.RIGHT;
+        } else
+            position = Position.MIDDLE;
+    }
+
+
+    public void turnToPixy()//works if pixy cam is in the middle
     {
         double pixyHalf = 1.95;
         telemetry.addData("started turn to pixy", "");
@@ -125,15 +154,7 @@ public class AutonomousBase extends OpModeBase {
             robot.leftDrive.setPower(.1);
             robot.rightDrive.setPower(-.1);
         }
-        while(robot.pixy.getVoltage() < 0.1 && opModeIsActive() && robot.rightBack.getCurrentPosition() < 2000){
-            telemetry.addData("started left turn", "");
-            telemetry.update();
-            position = Position.LEFT;
-            robot.leftBack.setPower(-.1);
-            robot.rightBack.setPower(.1);
-            robot.leftDrive.setPower(-.1);
-            robot.rightDrive.setPower(.1);
-        }
+        while(robot.pixy.getVoltage() < 0.1 && opModeIsActive() && robot.rightBack.getCurrentPosition() < 2000)
         //reset encoders, might get rid of this
         for (DcMotor motor : robot.motors)
             motor.setPower(0);

@@ -25,6 +25,12 @@ public class FinalTeleOp extends OpModeBase {
         }
         telemetry.addData("Calibration finished ", "");
         telemetry.update();
+
+        while(opModeIsActive()){
+            telemetry.addData("voltage:", robot.pixy.getVoltage());
+            telemetry.update();
+        }
+        /*
         int heading = 180;
 
         while (robot.gyro.getHeading() != heading && opModeIsActive()) {
@@ -53,7 +59,7 @@ public class FinalTeleOp extends OpModeBase {
             telemetry.update();
         }
         telemetry.addData("Robot is currently at inputted gyro heading", "");
-        telemetry.update();
+        telemetry.update();*/
 
     }
 

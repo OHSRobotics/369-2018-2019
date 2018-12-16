@@ -36,17 +36,16 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 public class HardwareK9bot
 {
     /* Public OpMode members. */
-    public ColorSensor Color_Sensor = null;
     public DcMotor leftBack = null;
     public DcMotor rightBack = null;
     public DcMotor  leftDrive   = null;
     public DcMotor  rightDrive  = null;
-    public DcMotor shoulder = null;
-    public DcMotor elbow = null;
-    public DcMotor shaftController = null;
-    public DcMotor dustbin = null;
+    public DcMotor shaft2 = null;
+    public DcMotor rake = null;
+    public DcMotor shaft1 = null;
+    //public DcMotor dustbin = null;
     public DcMotor[] motors = new DcMotor[4];
-    public Servo binBlock = null;
+    //public Servo binBlock = null;
     public AnalogInput pixy = null;
     //public GyroUnshafter gyro;
     public ModernRoboticsI2cGyro gyro = null;
@@ -66,11 +65,9 @@ public class HardwareK9bot
         rightDrive = hwMap.get(DcMotor.class, "right_drive");
         leftBack = hwMap.get(DcMotor.class, "left_back");
         rightBack = hwMap.get(DcMotor.class, "right_back");
-        shaftController = hwMap.get(DcMotor.class, "shaft_controller");
-        shoulder = hwMap.get(DcMotor.class, "shoulder");
-        elbow = hwMap.get(DcMotor.class, "elbow");
-        dustbin = hwMap.get(DcMotor.class, "dustbin");
-        binBlock = hwMap.get(Servo.class, "binServo");
+        shaft1 = hwMap.get(DcMotor.class, "shaft1");
+        shaft2 = hwMap.get(DcMotor.class, "shaft2");
+        rake = hwMap.get(DcMotor.class, "rake");
         pixy = hwMap.get(AnalogInput.class, "pixy");
 
         //grabberL = hwMap.get(Servo.class, "gripL");
@@ -86,10 +83,11 @@ public class HardwareK9bot
         motors[2] = leftBack;
         motors[3] = rightBack;
 
-        shaftController.setPower(0);
-        shaftController.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        shaft1.setPower(0);
+        shaft1.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
-        elbow.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        shoulder.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        shaft2.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        rake.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+
     }
 }
