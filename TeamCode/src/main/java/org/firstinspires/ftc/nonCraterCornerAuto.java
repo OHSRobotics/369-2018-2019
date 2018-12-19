@@ -14,11 +14,17 @@ public class nonCraterCornerAuto extends AutonomousBase {
     @Override
     public void runOpModeImpl() {
         turnToPixyNew();
-        helper.drive(.3, 35);
-        if(position == Position.LEFT)
-            gyroRotate(325, .1);
-        else if(position == Position.RIGHT)
-            gyroRotate(35, .1);
+
+        if(position == Position.LEFT) {
+            helper.drive(.3, 45);
+            gyroRotate(330, .1);
+
+        }else if(position == Position.RIGHT) {
+            helper.drive(.3, 45);
+            gyroRotate(30, .1);
+        }else
+            helper.drive(.3, 35);
+        crater();
         gamePiece();
     }
 }

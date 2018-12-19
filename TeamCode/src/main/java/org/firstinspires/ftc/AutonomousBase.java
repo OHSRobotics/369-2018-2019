@@ -67,13 +67,13 @@ public class AutonomousBase extends OpModeBase {
     }
 
     public void gamePiece(){
-        robot.rake.setPower(-.1);
+        robot.rake.setPower(-.3);
         sleep(500);
         robot.rake.setPower(0);
     }
 
     public void crater(){
-        robot.shaft2.setPower(.5);
+        robot.shaft2.setPower(.3);
         sleep(1500);
         robot.shaft2.setPower(0);
     }

@@ -17,9 +17,9 @@ public class CraterAuto extends AutonomousBase {
         turnToPixyNew();
         helper.drive(.3, 35);
         if(position == Position.LEFT)
-            gyroRotate(325, .1);
+            gyroRotate(330, .1);
         else if(position == Position.RIGHT)
-            gyroRotate(35, .1);
+            gyroRotate(30, .1);
         crater();
     }
 }
