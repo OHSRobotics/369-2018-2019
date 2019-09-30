@@ -7,6 +7,7 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 @TeleOp(name="motortest", group="K9bot")
 public class MotorTest extends LinearOpMode {
     @Override
+    //testing motors
     public void runOpMode () {
         HardwareK9bot testMotors = new HardwareK9bot();
         testMotors.init(hardwareMap);
