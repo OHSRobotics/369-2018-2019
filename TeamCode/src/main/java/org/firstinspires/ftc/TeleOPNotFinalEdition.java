@@ -1,5 +1,5 @@
 package org.firstinspires.ftc;
-
+//movement
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.Gamepad;
@@ -12,6 +12,7 @@ public class TeleOPNotFinalEdition extends OpModeBase{
         robot.init(hardwareMap);
         waitForStart();
         while(opModeIsActive())
+        //turning
         {
             double turn = getGamepad(1).right_stick_x;
             double lateral = getGamepad(1).left_stick_x;
@@ -26,7 +27,7 @@ public class TeleOPNotFinalEdition extends OpModeBase{
 
             telemetry.addData("Controller X:", getGamepad(1).left_stick_x);
             telemetry.addData("Controller Y:", getGamepad(1).left_stick_y);
-
+//controls
             robot.shaft1.setPower(getGamepad(2).right_trigger- getGamepad(2).left_trigger);
             robot.leftDrive.setPower(leftDrive);
             robot.leftBack.setPower(leftBack);
