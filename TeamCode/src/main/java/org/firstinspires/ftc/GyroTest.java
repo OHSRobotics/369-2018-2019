@@ -2,7 +2,7 @@ package org.firstinspires.ftc;
 
 public class GyroTest{/*
 
-//difining class
+//defining class
     //public class Gyro extends OpModeBase {/*
 
         public void gyroTurnTo(double heading) {
